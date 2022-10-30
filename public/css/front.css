@@ -1,0 +1,55 @@
+/* TOP NAVBAR */
+.navbar-top {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 20px;
+}
+.navbar-top-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.navbar-bottom {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+}
+.navbar-login {
+  cursor: pointer;
+}
+
+/* MAIN CONTENT */
+.shop-container {
+  display: flex;
+  margin: 0 30px;
+}
+
+/* SIDE NAVBAR */
+.navbar-left {
+  margin-right: 30px;
+}
+.navbar-left > div {
+  margin-bottom: 30px;
+}
+.label {
+  cursor: pointer;
+}
+.hidden {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+
+/* PRODUCT SELECTION */
+.product-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.product {
+  width: 125px;
+  height: 150px;
+  border: 1px solid red;
+}

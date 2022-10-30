@@ -1,0 +1,24 @@
+.login-page-content {
+  margin-left: 10%;
+}
+.login-page-content > h1 {
+  margin-bottom: 30px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.login-form > input {
+  margin-bottom: 10px;
+}
+.login-form > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.login-form > div > button {
+  height: 30px;
+  width: 80px;
+  border: none;
+}

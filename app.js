@@ -11,9 +11,13 @@ app.use(morgan("tiny"));
 app.use(express.json());
 app.use(express.static("public"));
 
+const authRouter = require("./routes/authRoutes");
+
 app.get("/", (req, res) => {
   // res.send("Susan Store");
 });
+
+app.use("/auth", authRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

@@ -14,18 +14,20 @@ app.use(express.static("public"));
 app.use(cookieParser(process.env.JWT_SECRET));
 
 const authRouter = require("./routes/authRoutes");
+const userRouter = require("./routes/userRoutes");
 
 app.get("/", (req, res) => {
   console.log(req.cookies);
   // res.send("Susan Store");
 });
 
-// app.get("/", (req, res) => {
-//   console.log(req.signedCookies);
-//   // res.send("Susan Store");
-// });
+app.get("/api", (req, res) => {
+  console.log(req.signedCookies);
+  res.send("Susan Store");
+});
 
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

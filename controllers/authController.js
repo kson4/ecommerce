@@ -1,8 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
-const { attachCookiesToResponse } = require("../utils");
-const { token } = require("morgan");
+const { attachCookiesToResponse, createTokenUser } = require("../utils");
 
 const register = async (req, res) => {
   const { email, name, password } = req.body;
@@ -15,7 +14,7 @@ const register = async (req, res) => {
     email,
     password,
   });
-  const tokenedUser = { name: user.name, userId: user._id, role: user.role };
+  const tokenedUser = createTokenUser(user);
   attachCookiesToResponse({ res, user: tokenedUser });
 
   // res.status(StatusCodes.CREATED).json({ user: tokenedUser });
@@ -27,19 +26,23 @@ const login = async (req, res) => {
   }
   const user = await User.findOne({ email });
   if (!user) {
-    throw new CustomError.UnauthenticatedError("Invalid credentials");
+    throw new CustomError.UnauthenticatedError("Invalid credentials: email");
   }
   const isCorrectPassword = await user.comparePassword(password);
   if (!isCorrectPassword) {
-    throw new CustomError.UnauthenticatedError("Invalid credentials");
+    throw new CustomError.UnauthenticatedError("Invalid credentials: password");
   }
-  const tokenedUser = { name: user.name, userId: user._id, role: user.role };
+  const tokenedUser = createTokenUser(user);
   attachCookiesToResponse({ res, user: tokenedUser });
 
   // res.status(StatusCodes.CREATED).json({ user: tokenedUser });
 };
 const logout = async (req, res) => {
-  res.send("logout");
+  res.cookie("token", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(StatusCodes.OK).json({ msg: "logged out user" });
 };
 
 module.exports = {
